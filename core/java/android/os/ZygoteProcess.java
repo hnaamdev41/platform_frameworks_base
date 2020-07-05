@@ -325,9 +325,8 @@ public class ZygoteProcess {
      * @param appDataDir null-ok the data directory of the app.
      * @param invokeWith null-ok the command to invoke with.
      * @param packageName null-ok the name of the package this process belongs to.
+     * @param zygoteArgs Additional arguments to supply to the zygote process.
      * @param zygotePolicyFlags Flags used to determine how to launch the application.
-     * @param isTopApp Whether the process starts for high priority application.
-     * @param zygoteArgs Additional arguments to supply to the Zygote process.
      * @return An object that describes the result of the attempt to start the process.
      * @throws RuntimeException on fatal start failure
      */
@@ -343,7 +342,6 @@ public class ZygoteProcess {
                                                   @Nullable String invokeWith,
                                                   @Nullable String packageName,
                                                   int zygotePolicyFlags,
-                                                  boolean isTopApp,
                                                   @Nullable String[] zygoteArgs) {
         // TODO (chriswailes): Is there a better place to check this value?
         if (fetchUsapPoolEnabledPropWithMinInterval()) {
@@ -354,7 +352,7 @@ public class ZygoteProcess {
             return startViaZygote(processClass, niceName, uid, gid, gids,
                     runtimeFlags, mountExternal, targetSdkVersion, seInfo,
                     abi, instructionSet, appDataDir, invokeWith, /*startChildZygote=*/ false,
-                    packageName, zygotePolicyFlags, isTopApp, zygoteArgs);
+                    packageName, zygotePolicyFlags, zygoteArgs);
         } catch (ZygoteStartFailedEx ex) {
             Log.e(LOG_TAG,
                     "Starting VM process through Zygote failed");
@@ -593,7 +591,6 @@ public class ZygoteProcess {
      * that has its state cloned from this zygote process.
      * @param packageName null-ok the name of the package this process belongs to.
      * @param zygotePolicyFlags Flags used to determine how to launch the application.
-     * @param isTopApp Whether the process starts for high priority application.
      * @param extraArgs Additional arguments to supply to the zygote process.
      * @return An object that describes the result of the attempt to start the process.
      * @throws ZygoteStartFailedEx if process start failed for any reason
@@ -612,7 +609,6 @@ public class ZygoteProcess {
                                                       boolean startChildZygote,
                                                       @Nullable String packageName,
                                                       int zygotePolicyFlags,
-                                                      boolean isTopApp,
                                                       @Nullable String[] extraArgs)
                                                       throws ZygoteStartFailedEx {
         ArrayList<String> argsForZygote = new ArrayList<>();
@@ -682,10 +678,6 @@ public class ZygoteProcess {
 
         if (packageName != null) {
             argsForZygote.add("--package-name=" + packageName);
-        }
-
-        if (isTopApp) {
-            argsForZygote.add(Zygote.START_AS_TOP_APP_ARG);
         }
 
         argsForZygote.add(processClass);
@@ -1213,7 +1205,7 @@ public class ZygoteProcess {
                     gids, runtimeFlags, 0 /* mountExternal */, 0 /* targetSdkVersion */, seInfo,
                     abi, instructionSet, null /* appDataDir */, null /* invokeWith */,
                     true /* startChildZygote */, null /* packageName */,
-                    ZYGOTE_POLICY_FLAG_SYSTEM_PROCESS /* zygotePolicyFlags */, false /* isTopApp */,
+                    ZYGOTE_POLICY_FLAG_SYSTEM_PROCESS /* zygotePolicyFlags */,
                     extraArgs);
         } catch (ZygoteStartFailedEx ex) {
             throw new RuntimeException("Starting child-zygote through Zygote failed", ex);
