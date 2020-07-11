@@ -497,6 +497,25 @@
     <alias name="fantasy" to="technical" />
     <alias name="ITC Stone Serif" to="technical" />
 
+    <family name="linotte">
+        <font weight="100" style="normal">Linotte-Thin.ttf</font>
+        <font weight="100" style="italic">Linotte-ThinItalic.ttf</font>
+        <font weight="200" style="normal">Linotte-Light.ttf</font>
+        <font weight="200" style="italic">Linotte-LightItalic.ttf</font>
+        <font weight="300" style="normal">Linotte-Regular.ttf</font>
+        <font weight="400" style="italic">Linotte-Italic.ttf</font>
+        <font weight="500" style="normal">Linotte-Regular.ttf</font>
+        <font weight="500" style="italic">Linotte-MediumItalic.ttf</font>
+        <font weight="600" style="normal">Linotte-Medium.ttf</font>
+        <font weight="600" style="italic">Linotte-MediumItalic.ttf</font>
+        <font weight="700" style="normal">Linotte-Bold.ttf</font>
+        <font weight="700" style="italic">Linotte-BoldItalic.ttf</font>
+        <font weight="800" style="normal">Linotte-Bold.ttf</font>
+        <font weight="800" style="italic">Linotte-BoldItalic.ttf</font>
+        <font weight="900" style="normal">Linotte-Black.ttf</font>
+        <font weight="900" style="italic">Linotte-BlackItalic.ttf</font>
+    </family>
+
     <family name="googlesans">
         <font weight="400" style="normal">GoogleSans-Regular.ttf</font>
         <font weight="400" style="italic">GoogleSans-Italic.ttf</font>
